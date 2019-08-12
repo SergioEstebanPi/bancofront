@@ -31,10 +31,10 @@ export class AppComponent {
         respuesta => {
           this.existeCliente = respuesta;
           if(this.existeCliente.codigo == "200"){
-            //alert("NO es posible crear el cliente");
-            swal("Error", 
-              "NO es posible crear el cliente",
-              "error");
+            //alert("Este número de identificación ya se encuentra registrado");
+            swal("Ups!", 
+              "Este número de identificación ya se encuentra registrado",
+              "info");
           } else {
             //alert("Se realiza el registro del cliente");
             this.clienteService.createClient(this.clienteForm)
