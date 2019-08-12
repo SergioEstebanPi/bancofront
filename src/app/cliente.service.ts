@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ClienteService {
 
-  urlBanco = "http://bancoback.herokuapp.com/api/v1/client";
+  urlBanco = "https://bancoback.herokuapp.com/api/v1/client";
   //urlBanco = 'http://localhost:8080/api/v1/client';
   //urlBanco = 'https://testbankapi.firebaseio.com/clients.json';
 
