@@ -16,6 +16,7 @@ export class AppComponent {
   insertado: any;
   model: any;
   edadValida: boolean = true;
+  esNumero: boolean = true;
   fechaActual: any;
 
   constructor(private clienteService: ClienteService){
@@ -26,7 +27,7 @@ export class AppComponent {
       day: this.formatValueDate(this.fechaActual.getDate())
     };
     this.clienteForm = {
-      identification: "",
+      identification: "0",
       firstname: "",
       lastname: "",
       birthdate: ""
@@ -62,6 +63,16 @@ export class AppComponent {
       }
     } else {
       this.edadValida = false;
+    }
+  }
+  
+  validarNumero(){
+    if(this.clienteForm.identification != ""){
+      if(this.clienteForm.identification.match(/^[0-9]*$/)){
+        this.esNumero = true;
+      } else {
+        this.esNumero = false;
+      }
     }
   }
 
