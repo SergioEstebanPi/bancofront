@@ -1,44 +1,71 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Bienvenido a la aplicación del {{ title }}
-  </h1>
-</div>
 
+
+<!--
 <ul *ngIf="errores.length > 0" class="alert-danger">
   <li *ngFor="let error of errores"></li>
 </ul>
+<div id="color1">
+  <button type="button">Color</button>
+</div>
+<div id="color2">
+  <button type="button">Color</button>
+</div>
+<div id="color3">
+  <button type="button">Color</button>
+</div>
+<div id="color4">
+  <button type="button">Color</button>
+</div>
+<div id="color5">
+  <button type="button">Color</button>
+</div>
+-->
 
 <div class="row">
-  <div class="col-md-12">
-    <form role="form">
-      <h1>Registro de clientes</h1>
-      <div class="form-group">
-        <label for="identification">Identificación</label>
-        <input [(ngModel)]="clienteForm.identification" name="identification" type="text" class="form-control" id="identification" placeholder="Introduce número de identificación">
-<!--        <div *ngIf="identification.invalid && (identification.dirty || identification.touched)" class="alert-danger">
-          <div *ngIf="identification.errors.required">Este campo es obligatorio</div>
-          <div *ngIf="identification.errors.existente">El número de identificación ya se encuentra registrado</div>
+  <div class="col-md-3"></div>
+  <form class="col-md-6" role="form" #formulario="ngForm">
+    <div class="container">
+        <div style="text-align:center">
+            <h1>
+              Bienvenido a la aplicación del {{ title }}
+            </h1>
+          </div>
+        <h2>Registro de clientes</h2>
+        <div class="form-group">
+          <label for="identification">Identificación</label>
+          <input [(ngModel)]="clienteForm.identification" name="identification" type="number" class="form-control" id="identification" placeholder="Ingrese su número de identificación" required #identification="ngModel">
+          <div *ngIf="identification.invalid && (identification.dirty || identification.touched)" class="alert alert-danger">
+            <div *ngIf="identification.errors.required">Este campo es obligatorio</div>
+            <!-- <div *ngIf="identification.errors.required">Debes ingresar un número válido</div> -->
+          </div>
         </div>
-      -->
+        <div class="form-group">
+          <label for="firstname">Nombre</label>
+          <input [(ngModel)]="clienteForm.firstname" type="text" class="form-control" id="firstname" name="firstname" placeholder="Ingrese su nombre" required #firstname="ngModel">
+          <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert alert-danger">
+            <div *ngIf="firstname.errors.required">Este campo es obligatorio</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="lastname">Apellido</label>
+          <input [(ngModel)]="clienteForm.lastname" type="text" class="form-control" id="lastname" name="lastname" placeholder="Ingrese su apellido" required #lastname="ngModel">
+          <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert alert-danger">
+            <div *ngIf="lastname.errors.required">Este campo es obligatorio</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="birthdate">Fecha de nacimiento</label>
+          <input [(ngModel)]="clienteForm.birthdate" type="text" class="form-control" id="birthdate" name="birthdate" placeholder="Ingrese su fecha de nacimiento" required #birthdate="ngModel">
+          <div *ngIf="birthdate.invalid && (birthdate.dirty || birthdate.touched)" class="alert alert-danger">
+            <div *ngIf="birthdate.errors.required">Este campo es obligatorio</div>
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <button (click)="createClient()" class="btn btn-primary form-control" type="submit" [disabled]="!formulario.form.valid">Registrar cliente</button>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="firstname">Nombre</label>
-        <input [(ngModel)]="clienteForm.firstname" type="text" class="form-control" id="firstname" name="firstname" placeholder="Introduce tus nombre">
-        <!-- <div *ngIf="errores" class="alert-danger">Este campo es obligatorio</div> -->
-      </div>
-      <div class="form-group">
-        <label for="lastname">Apellido</label>
-        <input [(ngModel)]="clienteForm.lastname" type="text" class="form-control" id="lastname" name="lastname" placeholder="Introduce tus apellido">
-        <!-- <div *ngIf="errores" class="alert-danger">Este campo es obligatorio</div> -->
-      </div>
-      <div class="form-group">
-        <label for="birthdate">Fecha de nacimiento</label>
-        <input [(ngModel)]="clienteForm.birthdate" type="text" class="form-control" id="birthdate" name="birthdate" placeholder="Introduce tu fecha de nacimiento">
-        <!-- <div *ngIf="errores" class="alert-danger">Este campo es obligatorio</div> -->
-        <!-- <div *ngIf="errores" class="alert-danger">Debes ser mayor de edad</div> -->
-      </div>
-      <button (click)="createClient()" type="submit" class="btn btn-success">Registrar cliente</button>
     </form>
+    <div class="col-md-3"></div>
   </div>
-</div>

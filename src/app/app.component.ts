@@ -34,7 +34,7 @@ export class AppComponent {
             //alert("Este número de identificación ya se encuentra registrado");
             swal("Ups!", 
               "Este número de identificación ya se encuentra registrado",
-              "info");
+              "warning");
           } else {
             //alert("Se realiza el registro del cliente");
             this.clienteService.createClient(this.clienteForm)
