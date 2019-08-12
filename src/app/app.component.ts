@@ -13,10 +13,18 @@ export class AppComponent {
   title = 'banco';
   clienteForm: Cliente;
   existeCliente: any;
-  errores: any;
+  insertado: any;
+  model: any;
+  edadValida: boolean = true;
+  fechaActual: any;
 
   constructor(private clienteService: ClienteService){
-    this.errores = {};
+    this.fechaActual = new Date();
+    this.model = {
+      year: this.fechaActual.getFullYear(),
+      month: this.formatValueDate(this.fechaActual.getMonth() + 1),
+      day: this.formatValueDate(this.fechaActual.getDate())
+    };
     this.clienteForm = {
       identification: "",
       firstname: "",
@@ -25,8 +33,42 @@ export class AppComponent {
     };
   }
 
+  formatValueDate(numero){
+    if(numero.length < 2) {
+      return "0" + numero;
+    } else {
+      return numero;
+    }
+  }
+
+  validarEdad(){
+    if(this.model.year != ""){
+      var dateClient = new Date(this.model.year + 18, this.model.month - 1, this.model.day);
+      var actualDate = new Date();
+
+      //console.log(dateClient);
+      //console.log(actualDate);
+      if(dateClient < actualDate) {
+        console.log("Es mayor de edad");
+        this.clienteForm.birthdate = "" + this.formatValueDate(this.model.day) 
+          + "-" + this.formatValueDate(this.model.month) 
+          + "-" + this.model.year;
+        this.edadValida = true;
+        //return true;
+      } else {
+        console.log("Es menor de edad");
+        this.edadValida = false;
+        //return false;
+      }
+    } else {
+      this.edadValida = false;
+    }
+  }
+
   createClient(){
-    this.clienteService.getCliente(this.clienteForm.identification)
+    this.validarEdad();
+    if(this.edadValida){
+      this.clienteService.getCliente(this.clienteForm.identification)
       .subscribe(
         respuesta => {
           this.existeCliente = respuesta;
@@ -38,17 +80,37 @@ export class AppComponent {
           } else {
             //alert("Se realiza el registro del cliente");
             this.clienteService.createClient(this.clienteForm)
-            .subscribe();
-            swal("Cliente registrado", 
-              "Se realiza el registro del cliente",
-              "success");            
+            .subscribe(
+              respuesta => {
+                this.insertado = respuesta;
+                if(this.insertado.codigo == "201"){
+                  swal("Cliente registrado", 
+                  "Se realiza el registro del cliente",
+                  "success");  
+                } else {
+                  swal("Error", 
+                  "Se produjo un error en el servicio al registrar el cliente",
+                  "error");     
+                }
+              },
+              error => {
+                swal("Error", 
+                "Se produjo un error en el servicio al registrar el cliente",
+                "error");         
+              }
+            );          
           }
         },
         error => {
-          //alert("Se ha producido un error al consultar el cliente");
+          //alert("Se produjo un error en el servicio al consultar el cliente");
           swal("Error", 
-          "Se ha producido un error al consultar el cliente",
+          "Se produjo un error en el servicio al consultar el cliente",
           "error");           
         });
+    } else {
+      swal("Ups!", 
+      "Debes ser mayor de 18 años para continuar",
+      "warning");  
+    }
   }
 }
