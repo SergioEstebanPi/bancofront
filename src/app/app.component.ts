@@ -35,10 +35,11 @@ export class AppComponent {
   }
 
   formatValueDate(numero){
-    if(numero.length < 2) {
-      return "0" + numero;
+    var numeroAux = "" + numero;
+    if(numeroAux.length < 2) {
+      return "0" + numeroAux;
     } else {
-      return numero;
+      return "" + numeroAux;
     }
   }
 
@@ -73,6 +74,8 @@ export class AppComponent {
       } else {
         this.esNumero = false;
       }
+    } else {
+      this.esNumero = false;
     }
   }
 
