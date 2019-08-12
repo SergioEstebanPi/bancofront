@@ -5,28 +5,39 @@
   </h1>
 </div>
 
+<ul *ngIf="errores.length > 0" class="alert-danger">
+  <li *ngFor="let error of errores"></li>
+</ul>
+
 <div class="row">
   <div class="col-md-12">
     <form role="form">
       <h1>Registro de clientes</h1>
       <div class="form-group">
         <label for="identification">Identificación</label>
-        <input [(ngModel)]="clienteForm.identification" name="identification" type="text" class="form-control" id="identification"
-              placeholder="Introduce número de identificación">
-              <p>{{clienteForm.identification}}</p>
+        <input [(ngModel)]="clienteForm.identification" name="identification" type="text" class="form-control" id="identification" placeholder="Introduce número de identificación">
+<!--        <div *ngIf="identification.invalid && (identification.dirty || identification.touched)" class="alert-danger">
+          <div *ngIf="identification.errors.required">Este campo es obligatorio</div>
+          <div *ngIf="identification.errors.existente">El número de identificación ya se encuentra registrado</div>
+        </div>
+      -->
       </div>
       <div class="form-group">
         <label for="firstname">Nombre</label>
-        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Introduce tus nombre">
+        <input [(ngModel)]="clienteForm.firstname" type="text" class="form-control" id="firstname" name="firstname" placeholder="Introduce tus nombre">
+        <!-- <div *ngIf="errores" class="alert-danger">Este campo es obligatorio</div> -->
       </div>
       <div class="form-group">
         <label for="lastname">Apellido</label>
-        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Introduce tus apellido">
+        <input [(ngModel)]="clienteForm.lastname" type="text" class="form-control" id="lastname" name="lastname" placeholder="Introduce tus apellido">
+        <!-- <div *ngIf="errores" class="alert-danger">Este campo es obligatorio</div> -->
       </div>
       <div class="form-group">
         <label for="birthdate">Fecha de nacimiento</label>
-        <input type="text" class="form-control" id="birthdate" name="birthdate" placeholder="Introduce tu fecha de nacimiento">
-      </div>  
+        <input [(ngModel)]="clienteForm.birthdate" type="text" class="form-control" id="birthdate" name="birthdate" placeholder="Introduce tu fecha de nacimiento">
+        <!-- <div *ngIf="errores" class="alert-danger">Este campo es obligatorio</div> -->
+        <!-- <div *ngIf="errores" class="alert-danger">Debes ser mayor de edad</div> -->
+      </div>
       <button (click)="createClient()" type="submit" class="btn btn-success">Registrar cliente</button>
     </form>
   </div>
